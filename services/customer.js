@@ -1,4 +1,4 @@
-import { createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail } from '../repositories/customers.js';
+import { createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail, getCustomerData, deleteCustomerData } from '../repositories/customers.js';
 import bcrypt from 'bcrypt';
 import { successResponse, errorResponse } from '../utils/response.js';
 import jwt from 'jsonwebtoken';

@@ -1,5 +1,5 @@
-import {createOrderData, getOrderDataByID, getOrderDataByCustomer, UpdateOrderStatusData} from '../repositories/orders.js';
-import { createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail } from '../repositories/customers.js';
+import { createOrderData, getOrderDataByID, getOrderDataByCustomer, UpdateOrderStatusData} from '../repositories/orders.js';
+import { createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail, getCustomerData, deleteCustomerData } from '../repositories/customers.js';
 import { createProductData, getProductData, updateProductData, deleteProductData, getProductDataByID, getProductDataByName, getProductDataByCategories, quantityAfterSales } from '../repositories/products.js';
 import bcrypt from 'bcrypt';
 import { successResponse, errorResponse } from '../utils/response.js';

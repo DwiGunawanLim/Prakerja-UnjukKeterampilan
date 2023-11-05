@@ -9,11 +9,11 @@ const createCustomerData = (nama_customer, email_customer, password, alamat_cust
 }
 
 // Tampilkan List Seluruh Customer (Buat Admin)
-// const getCustomerData = () => {
-//     const query = "SELECT * FROM Customers";
+const getCustomerData = () => {
+    const query = "SELECT * FROM Customers";
 
-//     return dbPool.query(query);
-// }
+    return dbPool.query(query);
+}
 
 // Update Profil Customer
 const updateCustomerData = (customer_id, nama_customer, email_customer, alamat_customer, nomor_customer) => {
@@ -23,11 +23,12 @@ const updateCustomerData = (customer_id, nama_customer, email_customer, alamat_c
     return dbPool.query(query, values);
 }
 
-// const deleteCustomerData = (id) => {
-//     const query = "DELETE FROM Customers WHERE customer_id=?";
+// Hapus Akun Customer (Admin)
+const deleteCustomerData = (id) => {
+    const query = "DELETE FROM Customers WHERE customer_id=?";
 
-//     return dbPool.query(query, [id]);
-// }
+    return dbPool.query(query, [id]);
+}
 
 // Tampilkan Profil Customer by ID
 const getCustomerDataByID = (id) => {
@@ -51,4 +52,4 @@ const updateCustomerPassword = (customer_id, password) => {
     return dbPool.query(query, values);
 }
 
-export {createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail}
+export {createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail, getCustomerData, deleteCustomerData}
