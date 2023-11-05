@@ -38,10 +38,10 @@ const getProductDataByID = (id) => {
 }
 
 // Detail Produk by Nama
-const getProductDataByName = (id) => {
+const getProductDataByName = (name) => {
     const query = "SELECT * FROM Products WHERE nama_produk=?";
 
-    return dbPool.query(query,[id]);
+    return dbPool.query(query,[name]);
 }
 
 // List Produk by Kategori
@@ -51,4 +51,11 @@ const getProductDataByCategories = (kategori) => {
     return dbPool.query(query,[kategori]);
 }
 
-export {createProductData, getProductData, updateProductData, deleteProductData, getProductDataByID, getProductDataByName, getProductDataByCategories}
+const quantityAfterSales = (id, jumlah) => {
+    const query = "UPDATE Products SET jumlah_stok=? WHERE produk_id=?";
+    const values = [jumlah, id];
+    
+    return dbPool.query(query,values);
+}
+
+export {createProductData, getProductData, updateProductData, deleteProductData, getProductDataByID, getProductDataByName, getProductDataByCategories, quantityAfterSales}
