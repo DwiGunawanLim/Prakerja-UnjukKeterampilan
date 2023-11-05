@@ -1,10 +1,10 @@
-import { createOrderData, getOrderDataByID, getOrderDataByCustomer, UpdateOrderStatusData} from '../repositories/orders.js';
+import { createOrderData, getOrderDataByID, getOrderDataByCustomer, UpdateOrderStatusData, getOrderData, deleteOrderData} from '../repositories/orders.js';
 import { createCustomerData, updateCustomerData, getCustomerDataByID, updateCustomerPassword, getCustomerDataByEmail, getCustomerData, deleteCustomerData } from '../repositories/customers.js';
 import { createProductData, getProductData, updateProductData, deleteProductData, getProductDataByID, getProductDataByName, getProductDataByCategories, quantityAfterSales } from '../repositories/products.js';
 import bcrypt from 'bcrypt';
 import { successResponse, errorResponse } from '../utils/response.js';
 import { request, response } from 'express';
-import { createOrderItemData, getOrderItemDataByOrder } from '../repositories/orderitems.js';
+import { createOrderItemData, getOrderItemData, getOrderItemDataByOrder } from '../repositories/orderitems.js';
 
 export const createOrder = async (request, response, next) => {
     let customer_id = request.claims.id;
@@ -47,5 +47,49 @@ export const createOrder = async (request, response, next) => {
         // } else {
         //     errorResponse(response, "Jumlah Barang Tidak Cukup, Gagal Memesan");
         // }
+    }
+}
+
+export const getOrder = async (request, response, next) => {
+    try {
+        const [result] = await getOrderData();
+
+        if (result.length > 0) {
+            successResponse(response, "Success", result);
+        } else {
+            errorResponse(response, "Belum ada Pesanan", 404);
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deleteOrder = async (request, response, next) => {
+    try {
+        let id = request.body.order_id;
+
+        const [result] = await deleteOrderData(id);
+
+        if (result.length > 0) {
+            successResponse(response, "Berhasil Menghapus Pesanan", result);
+        } else {
+            errorResponse(response, "Gagal Menghapus Pesanan");
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const getOrderItems = async (request, response, next) => {
+    try {
+        const [result] = await getOrderItemData();
+
+        if (result.length > 0) {
+            successResponse(response, `Terdapat ${result.length} Barang yang dipesan`, result);
+        } else {
+            errorResponse(response, "Tidak Terdapat Pesanan");
+        }
+    } catch (error) {
+        next(error);
     }
 }

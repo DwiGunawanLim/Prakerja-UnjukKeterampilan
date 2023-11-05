@@ -8,6 +8,13 @@ const createOrderData = (customer_id, jumlah_order) => {
     return dbPool.query(query, values);
 }
 
+// Lihat Seluruh Pesanan (Admin)
+const getOrderData = (id) => {
+    const query = "SELECT * FROM Orders";
+
+    return dbPool.query(query, [id]);
+}
+
 // Cari Pesanan By ID
 const getOrderDataByID = (id) => {
     const query = "SELECT * FROM Orders WHERE order_id =?";
@@ -30,4 +37,11 @@ const UpdateOrderStatusData = (order_id, status_order) => {
     return dbPool.query(query,values);
 }
 
-export {createOrderData, getOrderDataByID, getOrderDataByCustomer, UpdateOrderStatusData}
+// Hapus Pesanan
+const deleteOrderData = (id) => {
+    const query = "DELETE FROM Orders WHERE order_id=?";
+
+    return dbPool.query(query, [id]);
+}
+
+export {createOrderData, getOrderDataByID, getOrderDataByCustomer, UpdateOrderStatusData, getOrderData, deleteOrderData}

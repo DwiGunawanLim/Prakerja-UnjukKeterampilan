@@ -148,3 +148,22 @@ export const validateToken = (request, response, next) => {
         next(error);
     }
 }
+
+export const deleteCustomerAccount = async(request, response, next) => {
+    try {
+        let authToken = request.headers.authorization;
+        let accessToken = authToken && authToken.split(' ')[1]; 
+        
+        jwt.verify(accessToken, SECRET_ACCESS_TOKEN, (error, payload) => {
+            if (!error) {
+                request.claims = payload;
+                next();
+            } else {
+                errorResponse(response, error.message, 403);
+            }
+        })
+
+    } catch (error) {
+        next(error);
+    }
+}

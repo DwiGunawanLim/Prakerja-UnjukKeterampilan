@@ -83,30 +83,6 @@ export const updateProductDetail = async(request, response, next) => {
     }
 }
 
-export const updateCustomerPass = async(request, response, next) => {
-    try {
-        let id = request.claims.id;
-        let password = request.body.password;
-        let saltRound = 10;
-
-        bcrypt.hash(password, saltRound, async(err, hashedPassword) => {
-            const [result] = await updateCustomerPassword(id, hashedPassword);
-            const [detailUser] = await getCustomerDataByID(id);
-        
-            if (result.affectedRows > 0) {
-                successResponse(response, "Update Berhasil Dilakukan", detailUser[0]);
-                // console.log(`Update Berhasil Dilakukan`);
-            } else {
-                errorResponse(response, "User ID Not Found!");
-                // console.log(`Update Gagal`);
-            }
-        });
-
-    } catch (error) {
-        next(error);
-    }
-}
-
 export const deleteProduct = async(request, response, next) => {
     try {
         let id = request.params.id;

@@ -14,6 +14,7 @@ app.get("/customers/profile", CustomerService.validateToken, CustomerService.get
 app.post("/customers", CustomerService.createCustomer);
 app.put("/customers/profile/edit", CustomerService.validateToken, CustomerService.updateCustomerProfile);
 app.put("/customers/profile/edit/password", CustomerService.validateToken, CustomerService.updateCustomerPass);
+app.delete("/customers/:id", CustomerService.validateToken, CustomerService.deleteCustomerAccount)
 app.post("/login", CustomerService.login);
 
 // Handle Routing Product
@@ -26,6 +27,12 @@ app.get("/products/search/:categories", CustomerService.validateToken, ProductSe
 
 // Handle Order
 app.post("/orders", CustomerService.validateToken, OrderService.createOrder);
+app.get("/orders", OrderService.getOrder);
+app.delete("/orders", CustomerService.validateToken, OrderService.deleteOrder);
+
+// Handle Order Items
+app.get("/orders/items", OrderService.getOrderItems);
+app.delete("/orders/:id", OrderService.deleteOrder);
 
 app.listen(port, host, () => {
     console.log(`server berjalan di http://${host}:${port}`);
